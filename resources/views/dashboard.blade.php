@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beautiful Design</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+<x-app-layout>
+<body class="bg-dark">
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 text-center mx-auto">
             @auth
                 <!-- Show buttons for authenticated users -->
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addDataModal">Add New Data</button>
-                <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#viewHistoryModal">View History</button>
-                <a href="{{ route('dashboard') }}" type="button" class="btn btn-success btn-lg" >Dashboard</a>
-          
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addDataModal">Add New Data</button>
+<button class="btn btn-secondary" data-toggle="modal" data-target="#viewHistoryModal">View History</button>
+
+
                 @else 
                 <!-- Show login/registration buttons for guests -->
                 <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Login</a>
@@ -41,23 +32,30 @@
             </div>
             <div class="modal-body">
                 <form>
+                <div class="form-group">
+    <label for="selectUser">Select User</label>
+    <select class="form-control" id="selectUser" name="user_id">
+        <option value="">Select User</option>
+        @if(isset($users))
+            @foreach($users as $user)
+                <option value="{{ $user->id }}">{{ $user->name }}</option>
+            @endforeach
+        @endif
+    </select>
+</div>
+
+
                     <div class="form-group">
-                        <label for="inputName">Name</label>
-                        <input type="text" class="form-control" id="inputName" placeholder="Enter Name">
+                        <label for="inputPhoneNumber">How much</label>
+                        <input type="text" name="cost" class="form-control" placeholder="How Much">
                     </div>
                     <div class="form-group">
-                        <label for="inputPhoneNumber">Phone Number</label>
-                        <input type="text" class="form-control" id="inputPhoneNumber" placeholder="Enter Phone Number">
+                   
+                        <textarea name="description" id="" cols="54" rows="5">Description</textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="selectOption">Select Option</label>
-                        <select class="form-control" id="selectOption">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
                 </form>
             </div>
         </div>
@@ -98,5 +96,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-</body>
-</html>
+   
+</x-app-layout>
